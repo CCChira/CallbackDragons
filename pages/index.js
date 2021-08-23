@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { decrementCount, incrementCount, resetCount } from "../store/actions";
 import Link from "next/link";
 import NavbarComponent from "../Components/NavbarComponent";
+import SearchBarComponent from "../Components/SearchbarComponent";
 
 export default function Home() {
   const count = useSelector((state) => state.counter);
