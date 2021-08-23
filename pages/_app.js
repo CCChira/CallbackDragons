@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from "react-redux";
 import initStore from "../store/store";
 import NavbarComponent from "../Components/NavbarComponent";
-
+import FooterComponent from "../Components/FooterComponent";
 export default function MyApp(props) {
   const { Component, pageProps } = props;
     const {store, persistor} = initStore();
@@ -34,6 +34,7 @@ export default function MyApp(props) {
                 <PersistGate loading={null} persistor={persistor}>
                     <NavbarComponent/>
                     <Component {...pageProps} />
+                    <FooterComponent/>
                 </PersistGate>
             </Provider>
         </ThemeProvider>
