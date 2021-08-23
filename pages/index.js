@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 export default function Home() {
     const count = useSelector((state) => state.counter)
+    console.log(count)
     const dispatch = useDispatch()
 
     return (
