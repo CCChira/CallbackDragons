@@ -1,12 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Head from 'next/head';
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../src/theme';
-import initStore, {useStore} from "../store/store";
-import { Provider } from 'react-redux'
+import React from "react";
+import PropTypes from "prop-types";
+import Head from "next/head";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "../src/theme";
 import { PersistGate } from 'redux-persist/integration/react'
+import { Provider } from "react-redux";
+import initStore from "../store/store";
+import NavbarComponent from "../Components/NavbarComponent";
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -14,7 +15,7 @@ export default function MyApp(props) {
 
   React.useEffect(() => {
     // Remove the server-side injected CSS.
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles) {
       jssStyles.parentElement.removeChild(jssStyles);
     }
@@ -31,10 +32,10 @@ export default function MyApp(props) {
           <CssBaseline />
             <Provider store={store}>
                 <PersistGate loading={null} persistor={persistor}>
+                    <NavbarComponent/>
                     <Component {...pageProps} />
                 </PersistGate>
             </Provider>
-
         </ThemeProvider>
       </React.Fragment>
   );
