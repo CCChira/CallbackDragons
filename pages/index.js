@@ -1,11 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { decrementCount, incrementCount, resetCount } from "../store/actions";
-import Link from "next/link";
-import NavbarComponent from "../Components/NavbarComponent";
+import Head from 'next/head';
+import Image from 'next/image';
+import styles from '../styles/Home.module.css';
+import {Button} from '@material-ui/core';
+import {useDispatch, useSelector} from 'react-redux';
+import {decrementCount, incrementCount, resetCount} from '../store/actions';
+import Link from 'next/link';
+import NavbarComponent from '../Components/NavbarComponent';
 
 export default function Home() {
   const count = useSelector((state) => state.counter);
@@ -13,7 +13,6 @@ export default function Home() {
 
   return (
       <>
-
         <div className={styles.container}>
           <div>
             <h1>
@@ -32,14 +31,13 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
             >
-              Powered by{" "}
+              Powered by{' '}
               <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
+            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16}/>
           </span>
             </a>
           </footer>
         </div>
       </>
-
   );
 }

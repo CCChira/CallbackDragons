@@ -4,7 +4,6 @@ import { AccountTreeSharp } from '@material-ui/icons';
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: '#FFFFFF',
-    position: 'fixed',
   },
   logo: {
     color: '#440044',

@@ -7,7 +7,8 @@ import theme from "../src/theme";
 import { PersistGate } from 'redux-persist/integration/react'
 import { Provider } from "react-redux";
 import initStore from "../store/store";
-import NavbarComponent from "../Components/NavbarComponent";
+import Layout from '../Components/Layout';
+
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -22,22 +23,25 @@ export default function MyApp(props) {
   }, []);
 
   return (
-      <React.Fragment>
-        <Head>
-          <title>My page</title>
-          <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
-        </Head>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+      <Layout>
+        <React.Fragment>
+          <Head>
+            <title>My page</title>
+            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+          </Head>
+          <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
             <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
-                    <NavbarComponent/>
-                    <Component {...pageProps} />
-                </PersistGate>
+              <PersistGate loading={null} persistor={persistor}>
+
+                <Component {...pageProps} />
+              </PersistGate>
             </Provider>
-        </ThemeProvider>
-      </React.Fragment>
+          </ThemeProvider>
+        </React.Fragment>
+      </Layout>
+
   );
 }
 
