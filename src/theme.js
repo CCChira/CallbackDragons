@@ -1,15 +1,15 @@
 import { createTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
 /*
-#5ca4a9 
-#47aad5
-#7e90d0 ///somtehing?
+#8dd6ff
+#87c8ff
+#47aad5 ///gradient colors
 */
 // Create a theme instance.
 const theme = createTheme({
     palette: {
         primary: {
-            main: '#5ca4a9 ', ///turqoise
+            main: '#8dd6ff ', ///blue
         },
         secondary: {
             main: '#47aad5', ///blue
