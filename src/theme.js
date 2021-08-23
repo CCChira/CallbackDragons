@@ -3,7 +3,7 @@ import red from '@material-ui/core/colors/red';
 /*
 #8dd6ff
 #87c8ff
-#47aad5 ///gradient colors
+#66d1ff ///gradient colors
 */
 // Create a theme instance.
 const theme = createTheme({
