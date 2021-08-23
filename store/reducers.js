@@ -17,7 +17,7 @@ const counterReducer = (state = 0, { type }) => {
 
 // COMBINED REDUCERS
 const reducers = {
-    counter: counterReducer,
+    counter: counterReducer
 }
 
 export default combineReducers(reducers)
