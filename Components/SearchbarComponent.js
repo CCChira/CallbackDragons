@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
 import { alpha, makeStyles } from '@material-ui/core/styles';
+import { request } from '@octokit/request';
+
+import { setUsers, setQueryString } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
    search: {
@@ -44,13 +48,31 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const SearchBarComponent = () => {
+  const queryString = useSelector((state) => state);
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const searchForUser = (input) => {
+    request("GET /search/users", {
+      q: input
+    })
+      .then((res) => setUsers(res.data.items.map(el => el.login)))
+    setQueryString(input);
+  }
+
+  const handleInput = (event) => {
+    if(event.code === "Enter" ){
+      searchForUser(event.target.value)
+    }
+  }
+
   return(
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <InputBase
+        onKeyDown={handleInput}
         placeholder="Search…"
         classes={{
           root: classes.inputRoot,

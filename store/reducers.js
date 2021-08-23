@@ -15,9 +15,27 @@ const counterReducer = (state = 0, { type }) => {
     }
 }
 
+const githubReducer = (state = { users: [], query_string: 'haha' }, { type, payload }) => {
+    switch(type){
+        case types.SET_USERS:
+            return {
+                ...state,
+                users: payload
+            }
+        case types.SET_QUERY_STRING:
+            return {
+                ...state,
+                query_string: payload
+            }
+        default:
+            return state
+    }
+}
+
 // COMBINED REDUCERS
 const reducers = {
-    counter: counterReducer
+    counter: counterReducer,
+    github : githubReducer
 }
 
 export default combineReducers(reducers)

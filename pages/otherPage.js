@@ -1,5 +1,6 @@
 import {useDispatch, useSelector} from "react-redux";
 import {decrementCount, incrementCount, resetCount} from "../store/actions";
+import SearchbarComponent from '../Components/SearchbarComponent';
 
 export default function OtherPage() {
     const count = useSelector((state) => state.counter)
@@ -7,6 +8,7 @@ export default function OtherPage() {
 
     return (
         <div>
+            <SearchbarComponent/>
             <h1>
                 Count: <span>{count}</span>
             </h1>
