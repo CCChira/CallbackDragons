@@ -8,7 +8,6 @@ export default function OtherPage() {
 
   return (
     <>
-      <NavbarComponent/>
       <div className={styles.container}>
         <h1>
           Count: <span>{count}</span>
