@@ -30,6 +30,7 @@ const searchbarReducer = (state = { queryString: 'haha' }, { type, payload }) =>
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
+  searchbar: searchbarReducer
 };
 
 export default combineReducers(reducers);
