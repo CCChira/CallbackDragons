@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     background: "radial-gradient(circle, rgba(135,200,255,0.9669001389618347) 43%, rgba(141,214,255,1) 75%, rgba(102,209,255,1) 100%)"
   },
   logo: {
+    display: 'flex',
     position: 'relative',
     color: '#FFFFFF',
     padding: '2px',
@@ -29,8 +30,10 @@ function NavbarComponent() {
     <div>
       <AppBar position = 'static' className = {classes.navbar}>
         <Toolbar className = {classes.toolbar}>
+          <div className = {classes.logo}>
             <AccountTreeSharp fontSize = "large" className = {classes.logo}/>
             <Typography className = {classes.logo} variant= "h5">CBDragons</Typography>
+          </div>
             <FaceSharp className = {classes.profile}/>
         </Toolbar>
       </AppBar>
