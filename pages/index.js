@@ -1,11 +1,7 @@
-import Head from 'next/head';
-import Image from 'next/image';
 import styles from '../styles/Home.module.css';
-import {Button} from '@material-ui/core';
 import {useDispatch, useSelector} from 'react-redux';
 import {decrementCount, incrementCount, resetCount} from '../store/actions';
 import Link from 'next/link';
-import NavbarComponent from '../Components/NavbarComponent';
 
 export default function Home() {
   const count = useSelector((state) => state.counter);
