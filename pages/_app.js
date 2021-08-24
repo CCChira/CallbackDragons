@@ -34,14 +34,12 @@ export default function MyApp(props) {
             <CssBaseline />
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
-
                 <Component {...pageProps} />
               </PersistGate>
             </Provider>
           </ThemeProvider>
         </React.Fragment>
       </Layout>
-
   );
 }
 

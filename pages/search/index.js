@@ -1,4 +1,3 @@
-import {Button} from '@material-ui/core';
 import styles from '../../styles/Home.module.css';
 import {useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';

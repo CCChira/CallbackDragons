@@ -5,7 +5,7 @@ export default function Layout ({children}) {
   return (
       <>
         <NavbarComponent/>
-        <main className={styles.main}> {children}</main>
+        <main className={styles.main}>{children}</main>
       </>
   )
 }
