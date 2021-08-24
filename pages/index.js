@@ -1,13 +1,7 @@
-import Head from "next/head";
-import Image from "next/image";
-import styles from "../styles/Home.module.css";
-import { Button } from "@material-ui/core";
-import { useDispatch, useSelector } from "react-redux";
-import { decrementCount, incrementCount, resetCount } from "../store/actions";
-import Link from "next/link";
-import NavbarComponent from "../Components/NavbarComponent";
-import SearchBarComponent from "../Components/SearchbarComponent";
-import FooterComponent from "../Components/FooterComponent";
+import styles from '../styles/Home.module.css';
+import {useDispatch, useSelector} from 'react-redux';
+import {decrementCount, incrementCount, resetCount} from '../store/actions';
+import Link from 'next/link';
 
 export default function Home() {
   const count = useSelector((state) => state.counter);
@@ -15,7 +9,6 @@ export default function Home() {
 
   return (
       <>
-
         <div className={styles.container}>
           <div>
             <h1>
@@ -30,6 +23,5 @@ export default function Home() {
           </Link>
         </div>
       </>
-
   );
 }

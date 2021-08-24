@@ -5,9 +5,8 @@ const useStyles = makeStyles({
   navbar: {
     display: 'flex',
     justifyContent: 'space-between',
-    position: 'fixed',
     background: "rgb(135,200,255)",
-    background: "radial-gradient(circle, rgba(135,200,255,0.9669001389618347) 43%, rgba(141,214,255,1) 75%, rgba(102,209,255,1) 100%)" 
+    background: "radial-gradient(circle, rgba(135,200,255,0.9669001389618347) 43%, rgba(141,214,255,1) 75%, rgba(102,209,255,1) 100%)"
   },
   logo: {
     position: 'relative',
