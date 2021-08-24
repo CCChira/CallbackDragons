@@ -24,25 +24,25 @@ export default function MyApp(props) {
 
     return (
         <UserProvider>
-            <ThemeProvider theme={theme}>
-                <Layout>
-                    <React.Fragment>
-                        <Head>
-                            <title>My page</title>
-                            <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
-                        </Head>
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <ThemeProvider theme={theme}>
+                        <Layout>
+                            <React.Fragment>
+                                <Head>
+                                    <title>My page</title>
+                                    <meta name="viewport"
+                                          content="minimum-scale=1, initial-scale=1, width=device-width"/>
+                                </Head>
 
-                        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                        <CssBaseline/>
-                        <Provider store={store}>
-                            <PersistGate loading={null} persistor={persistor}>
+                                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                                <CssBaseline/>
                                 <Component {...pageProps} />
-                            </PersistGate>
-                        </Provider>
-
-                    </React.Fragment>
-                </Layout>
-            </ThemeProvider>
+                            </React.Fragment>
+                        </Layout>
+                    </ThemeProvider>
+                </PersistGate>
+            </Provider>
         </UserProvider>
     );
 }
