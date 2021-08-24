@@ -1,18 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import {Box, Button, Card, CardActions, CardContent, Grid, Input, Typography} from "@material-ui/core";
+import {Box, Button, Card, CardActions, CardContent, Grid, Input, Paper, Typography} from "@material-ui/core";
+import {useRouter} from "next/router";
 
 import {Octokit} from '@octokit/core';
 import theme from '../src/theme';
 
 const useStyles = makeStyles({
     UDDContainer: {
+        margin: 20
+    },
+    userDataBox: {
         display:"flex",
         flexWrap: "wrap",
         justifyContent: "center",
-    },
-    userDataBox: {
-      padding: 20,
+        padding: 20,
         margin: 30,
     },
     buttonCont: {
@@ -22,6 +24,23 @@ const useStyles = makeStyles({
     },
     button: {
         color: 'white'
+    },
+    avatar: {
+        verticalAlign: 'middle',
+        width: '40px',
+        height: '40px',
+        borderRadius: '50%',
+        marginRight: '5px',
+        marginBottom: '5px'
+    },
+    userDataElement: {
+        margin: 5,
+        fontSize: 18
+    },
+    userName: {
+        fontWeight: 600,
+        fontSize: 18,
+        fontStyle: "italic"
     }
 });
 
@@ -792,31 +811,55 @@ const repos = [
     }
 ];
 
+const initialData = {
+    user: {
+        avatar_url: 'https://avatars.githubusercontent.com/u/68700184?v=4',
+        login: "octocat",
+        followers: 12,
+        following: 1,
+        plan: {
+            private_repos: 20
+        }
+    } ,
+    repos: []
+}
+
 const UserDataDisplay = () => {
+    const router = useRouter();
+    let userName = "octocat";
+    userName = router.query.userName;
+
+    const [data, setData] = useState(initialData);
+
     const classes = useStyles();
 
-    // useEffect(() => {
-    //     (async () => {
-    //         const octokit = new Octokit();
-    //         const newRepos = (await octokit.request('GET /users/octocat/repos')).data;
-    //         setRepo(newRepos);
-    //     })();
-    // }, [])
+    useEffect(() => {
+        (async () => {
+            try {
+                const octokit = new Octokit();
+                const [data, user] = await Promise.all([octokit.request(`GET /users/${userName}/repos`), octokit.request(`GET /users/${userName}`)]);
 
-   // const [repos, setRepo] = useState([]);
+                setData({ user: user.data, repos: data.data });
+            } catch (err) {
+                setData(initialData);
+            }
+
+        })();
+    }, [userName])
 
     return (
-        <Box component="div" >
+        <Box component="div" className={classes.UDDContainer} >
             <Input placeholder="Search for repo" />
-            <Box component="div" className={classes.userDataBox} border={2} borderColor="primary.main" borderRadius='borderRadius'>
-                Username:
-                Name:
-                Followers:
-                Following:
-            </Box>
+            <Paper elevation={4} className={classes.userDataBox} >
+                <img src={data.user.avatar_url} alt="Avatar" className={classes.avatar}/>
+                <Typography className={`${classes.userDataElement} ${classes.userName}`} >{data.user.login}</Typography>
+                <Typography className={classes.userDataElement}>Followers: {data.user.followers}</Typography>
+                <Typography className={classes.userDataElement}>Following: {data.user.following}</Typography>
+                <Typography className={classes.userDataElement}>Repos: {data.repos.length}</Typography>
+            </Paper>
             <Grid container spacing={4} columns={{xs: 12, sm: 6, md: 4}}>
                 {
-                    repos.map((repo) => (
+                    data.repos.map((repo) => (
                         <Grid item xs={12} sm={6} md={4} key={repo.id}>
                             <Card>
                                 <CardContent>
