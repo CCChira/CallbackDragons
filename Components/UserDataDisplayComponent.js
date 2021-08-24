@@ -9,8 +9,8 @@ import styles from '../styles/Home.module.css';
 
 const useStyles = makeStyles({
   UDDContainer: {
-    margin: 20,
-    width: '90%'
+    width: '100%',
+    height: '100%'
   },
   userDataBox: {
     display: 'flex',
@@ -18,6 +18,10 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     padding: 20,
     margin: 30,
+  },
+  gridContainer: {
+    width: '95%',
+    margin: '2.5%'
   },
   avatar: {
     verticalAlign: 'middle',
@@ -91,7 +95,7 @@ const UserDataDisplay = () => {
           <Typography className={classes.userDataElement}>Repos: {data.repos.length}</Typography>
         </Paper>
         <Input onChange={handleInput} className={classes.searchBar} placeholder="Search for repo"/>
-        <Grid container spacing={4} columns={{xs: 12, sm: 6, md: 4}}>
+        <Grid className={classes.gridContainer} container spacing={4} columns={{xs: 12, sm: 6, md: 4}}>
           {
             displayedRepos.map((repo) => (
                 <Grid item xs={12} sm={6} md={4} key={repo.id}>
