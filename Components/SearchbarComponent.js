@@ -4,7 +4,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-   search: {
+  search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
- inputRoot: {
+  inputRoot: {
     color: 'inherit',
   },
   inputInput: {
@@ -41,17 +41,17 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-}))
+}));
 
 const SearchBarComponent = () => {
   const classes = useStyles();
-  return(
+  return (
     <div className={classes.search}>
       <div className={classes.searchIcon}>
         <SearchIcon />
       </div>
       <InputBase
-        placeholder="Search…"
+        placeholder='Search…'
         classes={{
           root: classes.inputRoot,
           input: classes.inputInput,
@@ -59,7 +59,7 @@ const SearchBarComponent = () => {
         inputProps={{ 'aria-label': 'search' }}
       />
     </div>
-  )
-}
+  );
+};
 
 export default SearchBarComponent;
