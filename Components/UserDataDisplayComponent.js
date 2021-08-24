@@ -26,8 +26,8 @@ const UserDataDisplay = () => {
     const [repos, setRepo] = useState([]);
 
     return (
-        <Box component="div" className={classes.UDDContainer}>
-            <Box>
+        <Box component="div" >
+            <Box component="div">
                 Username:
                 Name:
                 Followers:
