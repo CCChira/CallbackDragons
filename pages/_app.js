@@ -9,7 +9,6 @@ import { Provider } from "react-redux";
 import initStore from "../store/store";
 import Layout from '../Components/Layout';
 
-
 export default function MyApp(props) {
   const { Component, pageProps } = props;
     const {store, persistor} = initStore();
