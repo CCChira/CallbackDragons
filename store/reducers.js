@@ -15,9 +15,22 @@ const counterReducer = (state = 0, { type }) => {
   }
 };
 
+const searchbarReducer = (state = { queryString: 'haha' }, { type, payload }) => {
+    switch(type){
+        case types.SET_QUERY_STRING:
+            return {
+                ...state,
+                queryString: payload
+            }
+        default:
+            return state
+    }
+}
+
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
+  searchbar: searchbarReducer
 };
 
 export default combineReducers(reducers);

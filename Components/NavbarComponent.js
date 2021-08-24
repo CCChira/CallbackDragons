@@ -1,6 +1,8 @@
 import AppBar from '@material-ui/core/AppBar';
 import { Toolbar, IconButton, makeStyles, Typography , Badge, } from '@material-ui/core';
 import { AccountTreeSharp, FaceSharp } from '@material-ui/icons';
+import SearchbarComponent from './SearchbarComponent';
+
 const useStyles = makeStyles({
   navbar: {
     display: 'flex',
@@ -21,6 +23,10 @@ const useStyles = makeStyles({
   profile: {
     position: 'relative',
     color: 'white',
+    marginTop: '0.2em'
+  },
+  right: {
+    display: 'flex',
   }
 })
 function NavbarComponent() {
@@ -31,7 +37,10 @@ function NavbarComponent() {
         <Toolbar className = {classes.toolbar}>
             <AccountTreeSharp fontSize = "large" className = {classes.logo}/>
             <Typography className = {classes.logo} variant= "h5">CBDragons</Typography>
-            <FaceSharp className = {classes.profile}/>
+            <div className= { classes.right }>
+              <FaceSharp className = {classes.profile}/>
+              <SearchbarComponent />
+            </div>
         </Toolbar>
       </AppBar>
     </div>
