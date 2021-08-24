@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import { alpha, makeStyles } from '@material-ui/core/styles';
-import { useRouter } from 'next/router';
+import {alpha, makeStyles} from '@material-ui/core/styles';
 
-import {  setQueryString } from '../store/actions';
+import {setQueryString} from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
-   search: {
+  search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -31,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
- inputRoot: {
+  inputRoot: {
     color: 'inherit',
   },
   inputInput: {
@@ -44,41 +43,42 @@ const useStyles = makeStyles((theme) => ({
       width: '20ch',
     },
   },
-}))
+}));
 
 const SearchBarComponent = () => {
   const queryString = useSelector((state) => state.searchbar.queryString);
   const classes = useStyles();
   const dispatch = useDispatch();
-  const router = useRouter();
   const handleInput = (event) => {
-    dispatch(setQueryString(event.target.value));
-  }
+    if (event.code !== 'Enter') {
+      dispatch(setQueryString(event.target.value));
+    }
+  };
 
   const navigate = (event) => {
-    if(event.code === 'Enter'){
-      router.push('/search')
+    if (event.code === 'Enter') {
+      location.assign("/search");
     }
-  }
+  };
 
-  return(
-    <div className={classes.search}>
-      <div className={classes.searchIcon}>
-        <SearchIcon />
+  return (
+      <div className={classes.search}>
+        <div className={classes.searchIcon}>
+          <SearchIcon/>
+        </div>
+        <InputBase
+            onChange={handleInput}
+            onKeyDown={navigate}
+            placeholder="Search…"
+            value={queryString}
+            classes={{
+              root: classes.inputRoot,
+              input: classes.inputInput,
+            }}
+            inputProps={{'aria-label': 'search'}}
+        />
       </div>
-      <InputBase
-        onChange={handleInput}
-        onKeyDown={navigate}
-        placeholder="Search…"
-        value={queryString}
-        classes={{
-          root: classes.inputRoot,
-          input: classes.inputInput,
-        }}
-        inputProps={{ 'aria-label': 'search' }}
-      />
-    </div>
-  )
-}
+  );
+};
 
 export default SearchBarComponent;
