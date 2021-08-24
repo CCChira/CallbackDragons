@@ -5,11 +5,13 @@ import {Octokit} from '@octokit/rest';
 import SearchItem from '../../Components/SearchItem';
 
 export default function Search() {
-  const searchValue = useSelector(state => state.searchQuerry) || 'abc';
+  const searchValue = useSelector(state => state.searchbar.queryString);
   const queryString = encodeURIComponent(`${searchValue}`);
   const [queryResults, setQueryResults] = useState([]);
 
   useEffect(async () => {
+    if (queryString === '') return;
+
     const octokit = new Octokit();
     const results = await octokit.request('GET /search/users', {
       q: queryString
