@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import {Octokit} from '@octokit/rest';
+import Highlight from 'react-highlight';
 
 const BASE_URL='https://api.github.com/repos/CCChira/FQuentFinal/git/blobs/'
 
@@ -21,10 +22,8 @@ export default function FileViewer(){
   },[router.isReady])
 
   return(
-    <pre>
-        <code>
-        { fileContent }
-        </code>
-    </pre>
+    <Highlight>
+      { fileContent }
+    </Highlight>
   )
 }
