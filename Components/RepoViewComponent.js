@@ -1,4 +1,4 @@
-import { Card, makeStyles, Typography } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 import { DescriptionTwoTone, FolderOpenTwoTone } from '@material-ui/icons';
 const useStyles = makeStyles({
   fileCard: {

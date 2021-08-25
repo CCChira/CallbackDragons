@@ -1,12 +1,13 @@
 .container {
   background-image: url(../public/large-triangles.svg);
-  min-height: 100vh;
+  min-height: 80vh;
   min-width: 100%;
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   /*height: 100vh;*/
 }
 

@@ -1,8 +1,7 @@
 import styles from '../../../../styles/Home.module.css';
-import {useSelector} from 'react-redux';
-import {useEffect, useState} from 'react';
-import {useRouter} from 'next/router';
-import {Octokit} from '@octokit/rest';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import { Octokit } from '@octokit/rest';
 import RepoViewComponent from '../../../../Components/RepoViewComponent';
 import {List, ListItem, Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
@@ -102,7 +101,7 @@ function provisionalRepoView() {
           className={styles.container}
           style={{display: 'flex', flexDirection: 'column'}}
       >
-        <Paper className={classes.userPaper}>
+        <Paper className={classes.userPaper} elevation={3}>
           <img src={userData} className={classes.userAvatar}></img>
           <Typography variant="h5">{userName}</Typography>
           <Typography variant="h6">{repoName}</Typography>

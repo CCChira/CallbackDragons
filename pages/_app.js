@@ -30,12 +30,15 @@ export default function MyApp(props) {
             <React.Fragment>
               <Head>
                 <title>My page</title>
-                <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width"/>
+                <meta
+                  name='viewport'
+                  content='minimum-scale=1, initial-scale=1, width=device-width'
+                />
               </Head>
 
               {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline/>
-                  <Component {...pageProps} />
+              <CssBaseline />
+              <Component {...pageProps} />
             </React.Fragment>
           </Layout>
         </ThemeProvider>
