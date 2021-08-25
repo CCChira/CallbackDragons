@@ -5,7 +5,7 @@ import { Octokit } from '@octokit/rest';
 import SearchItem from '../../Components/SearchItem';
 
 export default function Search() {
-  const searchValue = useSelector(state => state.searchbar.queryString);
+  const searchValue = useSelector((state) => state.searchbar.queryString);
   const queryString = encodeURIComponent(`${searchValue}`);
   const [queryResults, setQueryResults] = useState([]);
 

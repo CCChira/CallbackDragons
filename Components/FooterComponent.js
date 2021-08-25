@@ -1,5 +1,4 @@
 import { Facebook, GitHub, Twitter } from '@material-ui/icons';
-import theme from '../src/theme';
 
 function FooterComponent() {
   return (

@@ -1,9 +1,9 @@
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import {alpha, makeStyles} from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 
-import {setQueryString} from '../store/actions';
+import { setQueryString } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -57,27 +57,27 @@ const SearchBarComponent = () => {
 
   const navigate = (event) => {
     if (event.code === 'Enter') {
-      location.assign("/search");
+      location.assign('/search');
     }
   };
 
   return (
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon/>
-        </div>
-        <InputBase
-            onChange={handleInput}
-            onKeyDown={navigate}
-            placeholder="Search…"
-            value={queryString}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{'aria-label': 'search'}}
-        />
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon />
       </div>
+      <InputBase
+        onChange={handleInput}
+        onKeyDown={navigate}
+        placeholder='Search…'
+        value={queryString}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{ 'aria-label': 'search' }}
+      />
+    </div>
   );
 };
 
