@@ -1,11 +1,22 @@
 import { useRouter } from 'next/router';
+import { makeStyles } from '@material-ui/core';
 import { useState, useEffect } from 'react';
 import {Octokit} from '@octokit/rest';
 import Highlight from 'react-highlight';
 
-const BASE_URL='https://api.github.com/repos/CCChira/FQuentFinal/git/blobs/'
+const useStyle = makeStyles({
+  hljs:{
+    display: 'inline-block',
+    overflowX: 'scroll',
+    overflowY: 'scroll',
+    padding: '0.5em',
+    height: '80vh',
+    width: '80vw',
+  }
+})
 
 export default function FileViewer(){
+  const classes = useStyle();
   const router = useRouter();
   const { userName, repoName, blobName } = router.query;
   const [fileContent, setFileContent] = useState('');
@@ -21,7 +32,7 @@ export default function FileViewer(){
   },[router.isReady])
 
   return(
-    <Highlight>
+    <Highlight className={classes.hljs}>
       { fileContent }
     </Highlight>
   )

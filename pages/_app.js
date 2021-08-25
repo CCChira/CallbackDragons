@@ -8,7 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import initStore from '../store/store';
 import Layout from '../Components/Layout';
-import '../node_modules/highlight.js/styles/night-owl.css';
+import '../node_modules/highlight.js/styles/googlecode.css';
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
