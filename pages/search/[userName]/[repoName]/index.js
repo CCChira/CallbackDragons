@@ -39,6 +39,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
   },
 });
+
 function provisionalRepoView() {
   const router = useRouter();
   const userName = router.query.userName;
@@ -46,6 +47,27 @@ function provisionalRepoView() {
   const [queryResults, setQueryResults] = useState([]);
   const [userData, setUserData] = useState({});
   const classes = useStyles();
+
+  const constructPreviousEntry = (previousUrl) => ({
+    path: '..',
+    type: 'tree',
+    url: previousUrl
+  });
+
+  const updateFileView = (fileArray, previousUrl) => {
+    fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
+    fileArray.unshift(constructPreviousEntry(previousUrl))
+    setQueryResults(fileArray);
+  }
+
+  const getNewFiles =  async (url) => {
+    const octokit = new Octokit();
+    const files = await octokit.request(`GET ${url}`);
+    const fileArray = files.data.tree;
+    console.log(fileArray)
+    updateFileView(fileArray,url);
+  }
+
   useEffect(() => {
     if (userName && repoName) {
       (async () => {
@@ -60,10 +82,7 @@ function provisionalRepoView() {
         const repoContents = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        const files = await octokit.request(`GET ${repoContents?.data.commit.tree.url}`);
-        const fileArray = files.data.tree;
-        fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
-        setQueryResults(fileArray);
+        getNewFiles(repoContents?.data.commit.tree.url)
       })();
     }
   }, [router.isReady]);
@@ -80,19 +99,29 @@ function provisionalRepoView() {
       <Paper className={classes.repoPaper} elevation={3}>
         <List component='nav' className={classes.list}>
           {queryResults.map((element, index) => {
-            return (
-              <Link
-                href={`/search/${userName}/${repoName}/${element.sha}`}
-                key={index}
-              >
-                <ListItem button divider>
+            if(element.type === 'blob')
+              return (
+                <Link
+                  href={`/search/${userName}/${repoName}/${element.sha}`}
+                  key={index}
+                >
+                  <ListItem button divider>
+                    <RepoViewComponent
+                      fileName={element.path}
+                      fileType={element.type}
+                    />
+                  </ListItem>
+                </Link>
+              );
+            else
+              return(
+                <ListItem onClick={() => getNewFiles(element.url)}button divider>
                   <RepoViewComponent
                     fileName={element.path}
                     fileType={element.type}
                   />
                 </ListItem>
-              </Link>
-            );
+              )
           })}
         </List>
       </Paper>
