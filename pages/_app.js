@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
-import {ThemeProvider} from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../src/theme';
 import {PersistGate} from 'redux-persist/integration/react';
@@ -9,6 +9,7 @@ import {Provider} from 'react-redux';
 import {UserProvider} from "@auth0/nextjs-auth0";
 import initStore from '../store/store';
 import Layout from '../Components/Layout';
+import '../node_modules/highlight.js/styles/googlecode.css';
 
 export default function MyApp(props) {
     const {Component, pageProps} = props;

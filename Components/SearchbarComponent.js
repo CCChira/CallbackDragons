@@ -1,9 +1,9 @@
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import {alpha, makeStyles} from '@material-ui/core/styles';
+import { alpha, makeStyles } from '@material-ui/core/styles';
 
-import {setQueryString} from '../store/actions';
+import { setQueryString } from '../store/actions';
 
 const useStyles = makeStyles((theme) => ({
   search: {
@@ -57,7 +57,7 @@ const SearchBarComponent = () => {
 
   const navigate = (event) => {
     if (event.code === 'Enter') {
-      location.assign("/search");
+      location.assign('/search');
     }
   };
 

@@ -1,9 +1,13 @@
 import AppBar from '@material-ui/core/AppBar';
+import {
+  Toolbar,
+  makeStyles,
+  Typography,
+} from '@material-ui/core';
+import { AccountTreeSharp, FaceSharp } from '@material-ui/icons';
 import SearchbarComponent from './SearchbarComponent';
-import Link from "next/link"
-import {Toolbar, IconButton, makeStyles, Typography, Badge,} from '@material-ui/core';
+import Link from "next/link";
 import {useUser} from "@auth0/nextjs-auth0";
-import {AccountTreeSharp, FaceSharp} from '@material-ui/icons';
 
 const useStyles = makeStyles({
   navbar: {
@@ -12,6 +16,7 @@ const useStyles = makeStyles({
     background: "radial-gradient(circle, rgba(135,200,255,0.9669001389618347) 43%, rgba(141,214,255,1) 75%, rgba(102,209,255,1) 100%)"
   },
   logo: {
+    display: 'flex',
     position: 'relative',
     color: '#FFFFFF',
     padding: '2px',
@@ -24,7 +29,7 @@ const useStyles = makeStyles({
   profile: {
     position: 'relative',
     color: 'white',
-    marginTop: '0.2em'
+    marginTop: '0.2em',
   },
   right: {
     display: 'flex',
@@ -78,8 +83,7 @@ function NavbarComponent() {
         </Toolbar>
       </AppBar>
     </div>
-  )
+  );
 }
 
-
-export default NavbarComponent
+export default NavbarComponent;
