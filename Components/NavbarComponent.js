@@ -6,10 +6,8 @@ import {
 } from '@material-ui/core';
 import { AccountTreeSharp, FaceSharp } from '@material-ui/icons';
 import SearchbarComponent from './SearchbarComponent';
-import Link from "next/link"
-import {Toolbar, IconButton, makeStyles, Typography, Badge,} from '@material-ui/core';
+import Link from "next/link";
 import {useUser} from "@auth0/nextjs-auth0";
-import {AccountTreeSharp, FaceSharp} from '@material-ui/icons';
 
 const useStyles = makeStyles({
   navbar: {
