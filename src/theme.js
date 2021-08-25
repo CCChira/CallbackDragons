@@ -7,20 +7,20 @@ import red from '@material-ui/core/colors/red';
 */
 // Create a theme instance.
 const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#8dd6ff', ///blue
-        },
-        secondary: {
-            main: '#47aad5', ///blue
-        },
-        error: {
-            main: red.A400,
-        },
-        background: {
-            default: '#fff',
-        },
+  palette: {
+    primary: {
+      main: '#8dd6ff', ///blue
     },
+    secondary: {
+      main: '#47aad5', ///blue
+    },
+    error: {
+      main: red.A400,
+    },
+    background: {
+      default: '#fff',
+    },
+  },
 });
 
 export default theme;
