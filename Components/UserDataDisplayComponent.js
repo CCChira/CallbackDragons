@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     fontStyle: 'italic',
   },
   searchBar: {
-    marginLeft: '35vw',
+    marginLeft: '40vw',
     marginBottom: '2vh',
     width: '20vw',
   },

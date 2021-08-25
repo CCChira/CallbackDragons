@@ -17,7 +17,8 @@ const useStyle = makeStyles({
     justifyContent: 'center',
   },
   button: {
-    color: 'white',
+    color: 'black',
+    alignSelf: 'flex-end'
   },
 });
 
@@ -25,8 +26,8 @@ const RepoCard = ({ repo, userName }) => {
   const classes = useStyle();
 
   return (
-    <Card>
-      <CardContent>
+    <Card style={{height:'20rem'}}>
+      <CardContent style={{height:'85%', overflow:'hidden'}}>
         <Typography color='textSecondary' gutterBottom>
           Name:
         </Typography>
@@ -42,7 +43,7 @@ const RepoCard = ({ repo, userName }) => {
           {repo.language}
         </Typography>
       </CardContent>
-      <CardActions className={classes.buttonCont}>
+      <CardActions style={{height:'15%'}} className={classes.buttonCont}>
         <Link href={`/search/${userName}/${repo.name}`}>
           <Button className={classes.button} size='small'>
             Show me the repo

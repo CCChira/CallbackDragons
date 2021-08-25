@@ -13,9 +13,11 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '20%',
-    height: '20%',
+    width: '20vw',
+    height: '15vh',
     padding: '10px',
+    overflow: 'hidden',
+    minWidth: '150px'
   },
   userAvatar: {
     verticalAlign: 'middle',

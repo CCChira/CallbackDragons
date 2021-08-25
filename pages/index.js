@@ -26,7 +26,8 @@ const useStyles = makeStyles({
         fontWeight: "800",
     },
     searchBar: {
-        width: '40%'
+        width: '40%',
+        height: '5vh'
     }
 })
 
@@ -51,8 +52,8 @@ export default function Home() {
                 </div>
                 :
                 <div className={classes.login}>
-                    <Paper elevation={3} className={classes.searchBar}>
-                        <SearchBarComponent/>
+                    <Paper style={{backgroundColor:'#8dd6ff'}} elevation={3} className={classes.searchBar}>
+                        <SearchBarComponent style={{width:'100%', height:'100%', align: 'center'}}/>
                     </Paper>
 
                     <Typography variant="h5" className={classes.text}>To see your Github content please

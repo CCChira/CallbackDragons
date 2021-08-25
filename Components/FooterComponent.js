@@ -10,6 +10,7 @@ function FooterComponent() {
         alignItems: 'center',
         bottom: '0',
         width: '100%',
+        height: '53px'
       }}
     >
       <div
