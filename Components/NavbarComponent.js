@@ -7,9 +7,11 @@ import {
 import SearchbarComponent from './SearchbarComponent';
 import Link from '@material-ui/core/Link';
 import {useUser} from '@auth0/nextjs-auth0';
-import {AccountTreeSharp, FaceSharp} from '@material-ui/icons';
+import {AccountTreeSharp, ExitToApp, FaceSharp} from '@material-ui/icons';
 import {useRouter} from 'next/router';
 import {useState} from 'react';
+import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
+import PersonIcon from '@material-ui/icons/Person';
 
 const useStyles = makeStyles({
   navbar: {
@@ -70,7 +72,7 @@ const StyledMenu = withStyles({
 const StyledMenuItem = withStyles((theme) => ({
   root: {
     '&:hover': {
-      backgroundColor: theme.palette.primary.main,
+      backgroundColor: theme.palette.secondary.main,
     },
   },
 }))(MenuItem);
@@ -96,8 +98,8 @@ function NavbarComponent() {
           <Toolbar className={classes.toolbar}>
             <div>
               <Link style={{display: 'flex', textDecoration: 'none'}} href="/">
-                  <AccountTreeSharp fontSize="large" className={classes.logo}/>
-                  <Typography className={classes.logo} variant="h5"> CBDragons </Typography>
+                <AccountTreeSharp fontSize="large" className={classes.logo}/>
+                <Typography className={classes.logo} variant="h5"> CBDragons </Typography>
               </Link>
             </div>
             <div className={classes.right}>
@@ -113,11 +115,13 @@ function NavbarComponent() {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                      <Link style={{textDecoration: 'none', color: 'black'}} href='/'>
-                        <StyledMenuItem onClick={handleClose}>Profile</StyledMenuItem>
+                      <Link style={{textDecoration: 'none', color: 'black'}} href="/">
+                        <StyledMenuItem onClick={handleClose}><PersonIcon
+                            style={{paddingRight: '0.3rem'}}/> Profile</StyledMenuItem>
                       </Link>
-                      <Link style={{textDecoration: 'none', color: 'black'}} href='/api/auth/logout'>
-                          <StyledMenuItem color="primary" onClick={handleClose}>Logout</StyledMenuItem>
+                      <Link style={{textDecoration: 'none', color: 'black'}} href="/api/auth/logout">
+                        <StyledMenuItem color="primary" onClick={handleClose}> <MeetingRoomIcon
+                            style={{paddingRight: '0.3rem'}}/> Logout</StyledMenuItem>
                       </Link>
                     </StyledMenu>
                   </>
