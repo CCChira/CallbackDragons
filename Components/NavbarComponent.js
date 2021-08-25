@@ -4,6 +4,7 @@ import Link from "next/link"
 import {Toolbar, IconButton, makeStyles, Typography, Badge,} from '@material-ui/core';
 import {useUser} from "@auth0/nextjs-auth0";
 import {AccountTreeSharp, FaceSharp} from '@material-ui/icons';
+import {useRouter} from "next/router";
 
 const useStyles = makeStyles({
   navbar: {
@@ -39,6 +40,8 @@ const useStyles = makeStyles({
 })
 
 function NavbarComponent() {
+  const router = useRouter();
+  const path = router.pathname;
   const {user} = useUser();
   const classes = useStyles();
 
@@ -73,7 +76,11 @@ function NavbarComponent() {
                 <FaceSharp className={classes.profile}/>
               </a>
             }
-            <SearchbarComponent/>
+            {(!user && path === '/')?
+                <></>
+                :
+                <SearchbarComponent/>
+            }
           </div>
         </Toolbar>
       </AppBar>
