@@ -1,7 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { decrementCount, incrementCount, resetCount } from "../store/actions";
-import NavbarComponent from "../Components/NavbarComponent";
-import styles from "../styles/Home.module.css";
+import { useDispatch, useSelector } from 'react-redux';
+import { decrementCount, incrementCount, resetCount } from '../store/actions';
+import NavbarComponent from '../Components/NavbarComponent';
+import styles from '../styles/Home.module.css';
 export default function OtherPage() {
   const count = useSelector((state) => state.counter);
   const dispatch = useDispatch();
