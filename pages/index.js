@@ -11,10 +11,13 @@ const useStyles = makeStyles({
   text: {
     margin: "2rem",
   },
-  btn: {
+  login: {
+    width: "100%",
+    margin: "0 auto",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    flexDirection: "column",
   },
   a: {
     textDecoration: "none",
@@ -41,12 +44,12 @@ export default function Home() {
     <div className={styles.container}>
       {user ?
         <div>
-         <UserDataDisplay />
+          <UserDataDisplay/>
         </div>
         :
-        <div>
+        <div className={classes.login}>
           <h2>Search Bar Component</h2>
-          <Typography variant="h5" className={classes.text}>To see your Github content please login.</Typography>
+          <Typography variant="h5" className={classes.text}>To see your Github content please LOGIN.</Typography>
           <Button variant="contained" color="primary" className={classes.btn}>
             {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
             <a className={classes.a} href="/api/auth/login">Login</a>

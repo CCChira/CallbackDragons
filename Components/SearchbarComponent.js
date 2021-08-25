@@ -62,22 +62,22 @@ const SearchBarComponent = () => {
   };
 
   return (
-      <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon/>
-        </div>
-        <InputBase
-            onChange={handleInput}
-            onKeyDown={navigate}
-            placeholder="Search…"
-            value={queryString}
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{'aria-label': 'search'}}
-        />
+    <div className={classes.search}>
+      <div className={classes.searchIcon}>
+        <SearchIcon/>
       </div>
+      <InputBase
+        onChange={handleInput}
+        onKeyDown={navigate}
+        placeholder="Search…"
+        value={queryString}
+        classes={{
+          root: classes.inputRoot,
+          input: classes.inputInput,
+        }}
+        inputProps={{'aria-label': 'search'}}
+      />
+    </div>
   );
 };
 

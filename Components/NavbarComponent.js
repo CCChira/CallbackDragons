@@ -46,8 +46,19 @@ function NavbarComponent() {
     <div>
       <AppBar position='static' className={classes.navbar}>
         <Toolbar className={classes.toolbar}>
-          <AccountTreeSharp fontSize="large" className={classes.logo}/>
-          <Typography className={classes.logo} variant="h5">CBDragons</Typography>
+          <Link href="/">
+            <a>
+              <AccountTreeSharp fontSize="large" className={classes.logo}/>
+            </a>
+          </Link>
+
+          <Typography className={classes.logo} variant="h5">
+            <Link href="/">
+              <a className={classes.tag}>
+                CBDragons
+              </a>
+            </Link>
+          </Typography>
           <div className={classes.right}>
             {user ?
               // eslint-disable-next-line @next/next/no-html-link-for-pages
