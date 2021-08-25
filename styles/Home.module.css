@@ -10,6 +10,10 @@
   /*height: 100vh;*/
 }
 
+.background {
+  background-image: url(../public/large-triangles.svg);
+}
+
 .main {
   /*padding: 5rem 0;*/
   flex: 1;
