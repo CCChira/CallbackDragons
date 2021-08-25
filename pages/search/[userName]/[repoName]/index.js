@@ -1,12 +1,13 @@
 import styles from '../../../../styles/Home.module.css';
-import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-import { Octokit } from '@octokit/rest';
+import {useSelector} from 'react-redux';
+import {useEffect, useState} from 'react';
+import {useRouter} from 'next/router';
+import {Octokit} from '@octokit/rest';
 import RepoViewComponent from '../../../../Components/RepoViewComponent';
-import { List, ListItem, Paper, Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core';
+import {List, ListItem, Paper, Typography} from '@material-ui/core';
+import {makeStyles} from '@material-ui/core';
 import Link from 'next/link';
+
 const useStyles = makeStyles({
   userPaper: {
     display: 'flex',
@@ -57,26 +58,26 @@ function provisionalRepoView() {
 
   const updateFileView = (fileArray, previousUrl) => {
     fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
-    fileArray.unshift(constructPreviousEntry(previousUrl))
+    fileArray.unshift(constructPreviousEntry(previousUrl));
     setQueryResults(fileArray);
-  }
+  };
 
-  const getNewFiles =  async (name, url) => {
+  const getNewFiles = async (name, url) => {
     const octokit = new Octokit();
     const files = await octokit.request(`GET ${url}`);
     const fileArray = files.data.tree;
-    if(name === '..'){
+    console.log('current: ', url);
+    if (name === '..') {
       setHistoryStack(historyStack.slice(0, -1));
-      updateFileView(fileArray,historyStack[historyStack.length-1]);
-    }
-    else{
-      updateFileView(fileArray,historyStack[historyStack.length-2]);
+      updateFileView(fileArray, historyStack[historyStack.indexOf(url) - 1]);
+    } else {
+      updateFileView(fileArray, historyStack[historyStack.length - 1]);
       setHistoryStack([
         ...historyStack,
         url
       ]);
     }
-  }
+  };
 
   useEffect(() => {
     if (userName && repoName) {
@@ -87,55 +88,57 @@ function provisionalRepoView() {
         });
         setUserData(user.data.items[0].avatar_url);
         const repo = await octokit.request(
-          `GET /repos/${userName}/${repoName}/commits`
+            `GET /repos/${userName}/${repoName}/commits`
         );
         const repoContents = await octokit.request(
-          `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
+            `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        getNewFiles('',repoContents?.data.commit.tree.url)
+        await getNewFiles('', repoContents?.data.commit.tree.url);
       })();
     }
   }, [router.isReady]);
   return (
-    <div
-      className={styles.container}
-      style={{ display: 'flex', flexDirection: 'column' }}
-    >
-      <Paper className={classes.userPaper}>
-        <img src={userData} className={classes.userAvatar}></img>
-        <Typography variant='h5'>{userName}</Typography>
-        <Typography variant='h6'>{repoName}</Typography>
-      </Paper>
-      <Paper className={classes.repoPaper} elevation={3}>
-        <List component='nav' className={classes.list}>
-          {queryResults.map((element, index) => {
-            if(element.type === 'blob')
-              return (
-                <Link
-                  href={`/search/${userName}/${repoName}/${element.sha}`}
-                  key={index}
-                >
-                  <ListItem button divider>
-                    <RepoViewComponent
-                      fileName={element.path}
-                      fileType={element.type}
-                    />
-                  </ListItem>
-                </Link>
-              );
-            else
-              return(
-                <ListItem onClick={() => getNewFiles(element.path,element.url)}button divider>
-                  <RepoViewComponent
-                    fileName={element.path}
-                    fileType={element.type}
-                  />
-                </ListItem>
-              )
-          })}
-        </List>
-      </Paper>
-    </div>
+      <div
+          className={styles.container}
+          style={{display: 'flex', flexDirection: 'column'}}
+      >
+        <Paper className={classes.userPaper}>
+          <img src={userData} className={classes.userAvatar}></img>
+          <Typography variant="h5">{userName}</Typography>
+          <Typography variant="h6">{repoName}</Typography>
+        </Paper>
+        <Paper className={classes.repoPaper} elevation={3}>
+          <List component="nav" className={classes.list}>
+            {queryResults.map((element, index) => {
+              if (element.type === 'blob')
+                return (
+                    <Link
+                        href={`/search/${userName}/${repoName}/${element.sha}`}
+                        key={index}
+                    >
+                      <ListItem button divider>
+                        <RepoViewComponent
+                            fileName={element.path}
+                            fileType={element.type}
+                        />
+                      </ListItem>
+                    </Link>
+                );
+              else
+                return (
+                    <ListItem key={index} onClick={async () => await getNewFiles(element.path, element.url)} button
+                              divider>
+                      <RepoViewComponent
+                          fileName={element.path}
+                          fileType={element.type}
+                      />
+                    </ListItem>
+                );
+            })}
+          </List>
+        </Paper>
+      </div>
   );
 }
+
 export default provisionalRepoView;
