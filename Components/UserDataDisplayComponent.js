@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import {useSelector} from "react-redux";
 import {makeStyles} from '@material-ui/core/styles';
 import {Box, Grid, Input, Paper, Typography} from '@material-ui/core';
 import {useRouter} from 'next/router';
@@ -50,17 +51,17 @@ const useStyles = makeStyles({
 const initialData = {
   user: {
     avatar_url: 'https://avatars.githubusercontent.com/u/68700184?v=4',
-    login: 'octocat',
-    followers: 12,
-    following: 1
+    login: 'No user',
+    followers: 0,
+    following: 0
   },
   repos: []
 };
 
 const UserDataDisplay = () => {
   const router = useRouter();
-  let userName = 'octocat';
-  userName = router.query.userName;
+  const loginUser = useSelector((state) => state.setLoginUser);
+  const userName = '' || router.query.userName || loginUser.userName;
 
   const [data, setData] = useState(initialData);
   const [displayedRepos, setDisplayedRepos] = useState([]);
@@ -69,13 +70,13 @@ const UserDataDisplay = () => {
 
   useEffect(() => {
     (async () => {
-      try {
+      if (userName) {
         const octokit = new Octokit();
         const [data, user] = await Promise.all([octokit.request(`GET /users/${userName}/repos`), octokit.request(`GET /users/${userName}`)]);
 
         setData({user: user.data, repos: data.data});
         setDisplayedRepos(data.data);
-      } catch (err) {
+      } else {
         setData(initialData);
       }
 
