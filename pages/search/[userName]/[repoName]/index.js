@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '15%',
+    width: '20%',
     height: '20%',
     padding: '10px',
   },
@@ -27,9 +27,9 @@ const useStyles = makeStyles({
   },
   repoPaper: {
     margin: '20px',
-    maxWidth: '500px',
+    maxWidth: '1000px',
     maxHeight: '50%',
-    width: '40%',
+    width: '75%',
     height: '60vh',
     overflow: 'auto',
   },
@@ -54,17 +54,13 @@ function provisionalRepoView() {
           q: userName,
         });
         setUserData(user.data.items[0].avatar_url);
-        const repoLang = await octokit.request(
-          `GET /repos/${userName}/${repoName}/languages`
-        );
         const repo = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits`
         );
         const repoContents = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        const commitContents = repoContents?.data.commit.tree;
-        const files = await octokit.request(`GET ${commitContents.url}`);
+        const files = await octokit.request(`GET ${repoContents?.data.commit.tree.url}`);
         const fileArray = files.data.tree;
         fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
         setQueryResults(fileArray);
@@ -74,7 +70,7 @@ function provisionalRepoView() {
   return (
     <div
       className={styles.container}
-      style={{ display: 'flex', flexDirection: 'row' }}
+      style={{ display: 'flex', flexDirection: 'column' }}
     >
       <Paper className={classes.userPaper}>
         <img src={userData} className={classes.userAvatar}></img>
