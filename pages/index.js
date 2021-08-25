@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {useUser} from "@auth0/nextjs-auth0";
 import {setLogin} from "../store/actions";
 import {Typography, Button, makeStyles} from "@material-ui/core";
+import UserDataDisplay from "../Components/UserDataDisplayComponent";
 
 
 const useStyles = makeStyles({
@@ -40,7 +41,7 @@ export default function Home() {
     <div className={styles.container}>
       {user ?
         <div>
-          <h1>Arnold and his functionality goes here</h1>
+         <UserDataDisplay />
         </div>
         :
         <div>
