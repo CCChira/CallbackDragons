@@ -26,10 +26,22 @@ const searchbarReducer = (state = {queryString: ''}, {type, payload}) => {
   }
 };
 
+const setLoginReducer = (state = {userName: ''}, {type, payload})  => {
+  switch(type) {
+    case types.SET_LOGIN_USER:
+      return {
+        userName: payload
+      };
+    default:
+      return state;
+  }
+}
+
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
-  searchbar: searchbarReducer
+  searchbar: searchbarReducer,
+  setLoginUser: setLoginReducer,
 };
 
 export default combineReducers(reducers);
