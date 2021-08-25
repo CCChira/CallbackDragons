@@ -4,21 +4,58 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Octokit } from '@octokit/rest';
 import RepoViewComponent from '../../../../Components/RepoViewComponent';
-import { Avatar, List, ListItem, Paper, Typography } from '@material-ui/core';
+import { List, ListItem, Paper, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import Link from 'next/link';
+const useStyles = makeStyles({
+  userPaper: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '15%',
+    height: '20%',
+    padding: '10px',
+  },
+  userAvatar: {
+    verticalAlign: 'middle',
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    marginRight: '5px',
+    marginBottom: '5px',
+  },
+  repoPaper: {
+    margin: '20px',
+    maxWidth: '500px',
+    maxHeight: '50%',
+    width: '40%',
+    height: '60vh',
+    overflow: 'auto',
+  },
+  list: {
+    overflow: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+});
 function provisionalRepoView() {
   const router = useRouter();
   const userName = router.query.userName;
   const repoName = router.query.repoName;
-  console.log(userName, repoName);
   const [queryResults, setQueryResults] = useState([]);
-  const [repoInfo, setRepoInfo] = useState({});
+  const [userData, setUserData] = useState({});
+  const classes = useStyles();
   useEffect(() => {
     if (userName && repoName) {
       (async () => {
         const octokit = new Octokit();
-        const repoDetails = await octokit.request(
-          `GET /repos/${userName}/${repoName}`
+        const user = await octokit.request(`GET /search/users`, {
+          q: userName,
+        });
+        setUserData(user.data.items[0].avatar_url);
+        const repoLang = await octokit.request(
+          `GET /repos/${userName}/${repoName}/languages`
         );
         const repo = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits`
@@ -26,12 +63,9 @@ function provisionalRepoView() {
         const repoContents = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        setRepoInfo(repoDetails);
         const commitContents = repoContents?.data.commit.tree;
-
         const files = await octokit.request(`GET ${commitContents.url}`);
         const fileArray = files.data.tree;
-        console.log(fileArray);
         fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
         setQueryResults(fileArray);
       })();
@@ -42,35 +76,13 @@ function provisionalRepoView() {
       className={styles.container}
       style={{ display: 'flex', flexDirection: 'row' }}
     >
-      <Paper
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '25%',
-          height: '400px',
-        }}
-      >
-        <Avatar></Avatar>
+      <Paper className={classes.userPaper}>
+        <img src={userData} className={classes.userAvatar}></img>
         <Typography variant='h5'>{userName}</Typography>
         <Typography variant='h6'>{repoName}</Typography>
       </Paper>
-      <Paper
-        style={{
-          margin: '20px',
-          maxWidth: '500px',
-          maxHeight: '50%',
-          width: '40%',
-          height: '60vh',
-          overflow: 'auto',
-        }}
-        elevation={3}
-      >
-        <List
-          component='nav'
-          style={{ overflow: 'auto', display: 'flex', flexDirection: 'column' }}
-        >
+      <Paper className={classes.repoPaper} elevation={3}>
+        <List component='nav' className={classes.list}>
           {queryResults.map((element, index) => {
             return (
               <Link
@@ -91,5 +103,4 @@ function provisionalRepoView() {
     </div>
   );
 }
-
 export default provisionalRepoView;
