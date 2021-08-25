@@ -45,6 +45,7 @@ function provisionalRepoView() {
   const userName = router.query.userName;
   const repoName = router.query.repoName;
   const [queryResults, setQueryResults] = useState([]);
+  const [historyStack, setHistoryStack] = useState([]);
   const [userData, setUserData] = useState({});
   const classes = useStyles();
 
@@ -60,12 +61,21 @@ function provisionalRepoView() {
     setQueryResults(fileArray);
   }
 
-  const getNewFiles =  async (url) => {
+  const getNewFiles =  async (name, url) => {
     const octokit = new Octokit();
     const files = await octokit.request(`GET ${url}`);
     const fileArray = files.data.tree;
-    console.log(fileArray)
-    updateFileView(fileArray,url);
+    if(name === '..'){
+      setHistoryStack(historyStack.slice(0, -1));
+      updateFileView(fileArray,historyStack[historyStack.length-1]);
+    }
+    else{
+      updateFileView(fileArray,historyStack[historyStack.length-2]);
+      setHistoryStack([
+        ...historyStack,
+        url
+      ]);
+    }
   }
 
   useEffect(() => {
@@ -82,7 +92,7 @@ function provisionalRepoView() {
         const repoContents = await octokit.request(
           `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        getNewFiles(repoContents?.data.commit.tree.url)
+        getNewFiles('',repoContents?.data.commit.tree.url)
       })();
     }
   }, [router.isReady]);
@@ -115,7 +125,7 @@ function provisionalRepoView() {
               );
             else
               return(
-                <ListItem onClick={() => getNewFiles(element.url)}button divider>
+                <ListItem onClick={() => getNewFiles(element.path,element.url)}button divider>
                   <RepoViewComponent
                     fileName={element.path}
                     fileType={element.type}
