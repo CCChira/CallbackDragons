@@ -7,6 +7,7 @@ import {useRouter} from 'next/router';
 import {Octokit} from '@octokit/core';
 import RepoCard from './RepoCard';
 import styles from '../styles/Home.module.css';
+import MostUsedByUser from './MostUsedByUser';
 
 const useStyles = makeStyles({
   UDDContainer: {
@@ -18,7 +19,7 @@ const useStyles = makeStyles({
     flexWrap: 'wrap',
     justifyContent: 'center',
     padding: 20,
-    margin: 30,
+    // margin: 5,
   },
   gridContainer: {
     width: '95%',
@@ -97,26 +98,29 @@ const UserDataDisplay = () => {
       component='div'
       className={`${classes.UDDContainer}`}
     >
-      <Paper elevation={4} className={classes.userDataBox}>
-        <img
-          src={data.user.avatar_url}
-          alt='Avatar'
-          className={classes.avatar}
-        />
-        <Typography
-          className={`${classes.userDataElement} ${classes.userName}`}
-        >
-          {data.user.login}
-        </Typography>
-        <Typography className={classes.userDataElement}>
-          Followers: {data.user.followers}
-        </Typography>
-        <Typography className={classes.userDataElement}>
-          Following: {data.user.following}
-        </Typography>
-        <Typography className={classes.userDataElement}>
-          Repos: {data.repos.length}
-        </Typography>
+      <Paper elevation={4} style={{margin: '20px'}}>
+        <div className={classes.userDataBox}>
+          <img
+            src={data.user.avatar_url}
+            alt='Avatar'
+            className={classes.avatar}
+          />
+          <Typography
+            className={`${classes.userDataElement} ${classes.userName}`}
+          >
+            {data.user.login}
+          </Typography>
+          <Typography className={classes.userDataElement}>
+            Followers: {data.user.followers}
+          </Typography>
+          <Typography className={classes.userDataElement}>
+            Following: {data.user.following}
+          </Typography>
+          <Typography className={classes.userDataElement}>
+            Repos: {data.repos.length}
+          </Typography>
+        </div>
+        <MostUsedByUser classes={classes} repos={data.repos}/>
       </Paper>
       <Input
         onChange={handleInput}
