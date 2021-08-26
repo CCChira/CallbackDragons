@@ -1,41 +1,68 @@
-import { useRouter } from 'next/router';
-import { makeStyles } from '@material-ui/core';
-import { useState, useEffect } from 'react';
+import {useRouter} from 'next/router';
+import {Button, Card, CardActions, CardContent, makeStyles, Typography} from '@material-ui/core';
+import {useState, useEffect} from 'react';
 import {Octokit} from '@octokit/rest';
 import Highlight from 'react-highlight';
 import styles from '../../../../styles/Home.module.css';
+import {useSelector} from 'react-redux';
+import Link from '@material-ui/core/Link';
 
 const useStyle = makeStyles({
-  hljs:{
+  hljs: {
     display: 'inline-block',
     overflowX: 'auto',
     overflowY: 'auto',
-    padding: '0.5em',
-    height: '80vh',
+    height: '60vh',
     width: '80vw',
+  },
+  infoCard: {
+    marginTop: '1.5rem',
+    width: '40vw'
   }
-})
+});
 
-export default function FileViewer(){
+export default function FileViewer() {
   const classes = useStyle();
   const router = useRouter();
-  const { userName, repoName, blobName } = router.query;
+  const {userName, repoName, blobName} = router.query;
   const [fileContent, setFileContent] = useState('');
+  const historyStack = useSelector(state => state.fileLocation);
+  const [fileName, setFileName] = useState('');
 
   useEffect(async () => {
-    if(router.isReady){
-        const octokit = new Octokit();
-        const url = `https://api.github.com/repos/${userName}/${repoName}/git/blobs/${blobName}`;
-        const res = await octokit.request(`GET ${url}`);
-        setFileContent(Buffer.from(res.data.content, 'base64').toString());
-    }
-  },[router.isReady])
+    if (router.isReady) {
+      const octokit = new Octokit();
+      const url = `https://api.github.com/repos/${userName}/${repoName}/git/blobs/${blobName}`;
+      const res = await octokit.request(`GET ${url}`);
 
-  return(
+      setFileContent(Buffer.from(res.data.content, 'base64').toString());
+    }
+  }, [router.isReady]);
+
+  useEffect(async () => {
+    const target = historyStack[historyStack.length - 1];
+    if (!target) return;
+    const octokit = new Octokit();
+    const res = await octokit.request(`GET ${historyStack[historyStack.length - 1]}`)
+    setFileName(res?.data?.tree?.filter?.(item => item.sha === blobName)?.[0]?.path);
+  }, [historyStack])
+
+  return (
     <div className={styles.container}>
-      <Highlight className={classes.hljs}>
-        { fileContent }
+      <Card className={classes.infoCard}>
+        <CardContent style={{textAlign: 'center'}}>
+          <Typography variant='h4'>{fileName}</Typography>
+        </CardContent>
+        <CardActions style={{width: '100%'}}>
+          <Link style={{textDecoration: 'none', color: 'black', width: '100%'}} href={`/search/${userName}/${repoName}`}>
+            <Button style={{width: '100%'}} variant="contained" color="primary">Back to the repo</Button>
+          </Link>
+        </CardActions>
+      </Card>
+
+      <Highlight style={{margin: 0}} className={classes.hljs}>
+        {fileContent}
       </Highlight>
     </div>
-  )
+  );
 }

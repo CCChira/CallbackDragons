@@ -37,11 +37,21 @@ const setLoginReducer = (state = {userName: ''}, {type, payload})  => {
   }
 }
 
+const fileLocationReducer = (state = [], {type, payload}) => {
+  switch (type) {
+    case "SET_FILE_STACK":
+      return payload
+    default:
+      return state
+  }
+}
+
 // COMBINED REDUCERS
 const reducers = {
   counter: counterReducer,
   searchbar: searchbarReducer,
   setLoginUser: setLoginReducer,
+  fileLocation: fileLocationReducer,
 };
 
 export default combineReducers(reducers);

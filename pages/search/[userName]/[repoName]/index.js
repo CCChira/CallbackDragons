@@ -6,6 +6,8 @@ import RepoViewComponent from '../../../../Components/RepoViewComponent';
 import {List, ListItem, Paper, Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core';
 import Link from 'next/link';
+import {useDispatch, useSelector} from 'react-redux';
+import {setFileStack} from '../../../../store/actions';
 
 const useStyles = makeStyles({
   userPaper: {
@@ -47,7 +49,9 @@ function provisionalRepoView() {
   const userName = router.query.userName;
   const repoName = router.query.repoName;
   const [queryResults, setQueryResults] = useState([]);
-  const [historyStack, setHistoryStack] = useState([]);
+  const historyStack = useSelector(state => state.fileLocation);
+  const dispatch = useDispatch();
+  const setHistoryStack = (payload) => dispatch(setFileStack(payload));
   const [userData, setUserData] = useState({});
   const classes = useStyles();
 
@@ -59,7 +63,8 @@ function provisionalRepoView() {
 
   const updateFileView = (fileArray, previousUrl) => {
     fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
-    fileArray.unshift(constructPreviousEntry(previousUrl));
+    if(previousUrl)
+      fileArray.unshift(constructPreviousEntry(previousUrl));
     setQueryResults(fileArray);
   };
 
@@ -67,7 +72,6 @@ function provisionalRepoView() {
     const octokit = new Octokit();
     const files = await octokit.request(`GET ${url}`);
     const fileArray = files.data.tree;
-    console.log('current: ', url);
     if (name === '..') {
       setHistoryStack(historyStack.slice(0, -1));
       updateFileView(fileArray, historyStack[historyStack.indexOf(url) - 1]);
@@ -94,10 +98,11 @@ function provisionalRepoView() {
         const repoContents = await octokit.request(
             `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        await getNewFiles('', repoContents?.data.commit.tree.url);
+        await getNewFiles('', repoContents?.data.commit.tree.url)
       })();
     }
   }, [router.isReady]);
+
   return (
       <div
           className={styles.container}
