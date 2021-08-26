@@ -164,7 +164,7 @@ function provisionalRepoView() {
           </List>
         </Paper>
         {readme !== '' &&
-         <Paper className={classes.repoPaper} elevation={3}>
+         <Paper className={classes.repoPaper} style={{ padding: '10px' }} elevation={3}>
            { ReactHtmlParser(readme) }
          </Paper>
         }
