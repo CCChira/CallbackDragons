@@ -14,6 +14,10 @@ const useStyle = makeStyles({
     overflowY: 'auto',
     height: '60vh',
     width: '80vw',
+  },
+  infoCard: {
+    marginTop: '1.5rem',
+    width: '40vw'
   }
 });
 
@@ -45,7 +49,7 @@ export default function FileViewer() {
 
   return (
     <div className={styles.container}>
-      <Card style={{marginTop: '1.5 rem', width: '20vw'}}>
+      <Card className={classes.infoCard}>
         <CardContent style={{textAlign: 'center'}}>
           <Typography variant='h4'>{fileName}</Typography>
         </CardContent>
