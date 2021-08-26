@@ -25,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SearchItem({ result }) {
+export default function SearchItemComponent({ result }) {
   const classes = useStyles();
   const [bio, setBio] = useState();
 

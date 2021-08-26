@@ -1,10 +1,9 @@
 import {Typography} from '@material-ui/core';
 import React from 'react';
 
-export default function MostUsedByUser({classes, repos}) {
+export default function MostUsedByUserComponent({classes, repos}) {
   let languages = repos?.reduce?.((total, item) => {
     const { language } = item;
-    console.log(language);
 
     if (!language) return total;
     if (!total[language]) {

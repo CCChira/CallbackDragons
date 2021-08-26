@@ -5,9 +5,9 @@ import {Box, Grid, Input, Paper, Typography} from '@material-ui/core';
 import {useRouter} from 'next/router';
 
 import {Octokit} from '@octokit/core';
-import RepoCard from './RepoCard';
+import RepoCardComponent from './RepoCardComponent';
 import styles from '../styles/Home.module.css';
-import MostUsedByUser from './MostUsedByUser';
+import MostUsedByUserComponent from './MostUsedByUserComponent';
 
 const useStyles = makeStyles({
   UDDContainer: {
@@ -120,7 +120,7 @@ const UserDataDisplay = () => {
             Repos: {data.repos.length}
           </Typography>
         </div>
-        <MostUsedByUser classes={classes} repos={data.repos}/>
+        <MostUsedByUserComponent classes={classes} repos={data.repos}/>
       </Paper>
       <Input
         onChange={handleInput}
@@ -135,7 +135,7 @@ const UserDataDisplay = () => {
       >
         {displayedRepos.map((repo) => (
           <Grid item xs={12} sm={6} md={4} key={repo.id}>
-            <RepoCard repo={repo} userName={userName} />
+            <RepoCardComponent repo={repo} userName={userName} />
           </Grid>
         ))}
       </Grid>
