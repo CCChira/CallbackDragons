@@ -51,7 +51,7 @@ const calcPercentages = (languages) => {
     return percentage;
 }
 
-const RepoCard = ({repo, userName}) => {
+const RepoCardComponent = ({repo, userName}) => {
     const classes = useStyle();
 
     const [percentages, setPercentages] = useState({});
@@ -111,4 +111,4 @@ const RepoCard = ({repo, userName}) => {
     );
 };
 
-export default RepoCard;
+export default RepoCardComponent;
