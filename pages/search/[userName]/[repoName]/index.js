@@ -14,10 +14,10 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
     width: '20vw',
-    height: '15vh',
-    padding: '10px',
+    minHeight: '10px',
     overflow: 'hidden',
-    minWidth: '150px'
+    minWidth: '150px',
+    margin: '2rem 0'
   },
   userAvatar: {
     verticalAlign: 'middle',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     marginBottom: '5px',
   },
   repoPaper: {
-    margin: '20px',
+    marginBottom: '2rem',
     maxWidth: '1000px',
     maxHeight: '50%',
     width: '75%',
