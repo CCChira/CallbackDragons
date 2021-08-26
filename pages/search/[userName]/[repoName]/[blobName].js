@@ -45,12 +45,14 @@ export default function FileViewer() {
 
   return (
     <div className={styles.container}>
-      <Card style={{marginTop: '1.5 rem'}}>
+      <Card style={{marginTop: '1.5 rem', width: '20vw'}}>
         <CardContent style={{textAlign: 'center'}}>
           <Typography variant='h4'>{fileName}</Typography>
         </CardContent>
-        <CardActions>
-          <Link style={{textDecoration: 'none', color: 'black'}} href={`/search/${userName}/${repoName}`}><Button variant="contained" color="primary">Back to the repo</Button></Link>
+        <CardActions style={{width: '100%'}}>
+          <Link style={{textDecoration: 'none', color: 'black', width: '100%'}} href={`/search/${userName}/${repoName}`}>
+            <Button style={{width: '100%'}} variant="contained" color="primary">Back to the repo</Button>
+          </Link>
         </CardActions>
       </Card>
 
