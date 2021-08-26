@@ -47,7 +47,7 @@ export default function Home() {
     return (
         <div className={styles.container}>
             {user ?
-                <div>
+                <div className={classes.login}>
                     <UserDataDisplay/>
                 </div>
                 :

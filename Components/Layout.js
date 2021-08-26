@@ -5,9 +5,11 @@ import FooterComponent from './FooterComponent';
 export default function Layout({children}) {
   return (
       <>
-        <NavbarComponent/>
-        <main className={styles.main}>{children}</main>
-        <FooterComponent/>
+        <div className={styles.background} style={{height: '100%', width: '100%'}}>
+          <NavbarComponent/>
+          <main className={styles.main}>{children}</main>
+          <FooterComponent/>
+        </div>
       </>
   );
 }

@@ -2,16 +2,14 @@ import AppBar from '@material-ui/core/AppBar';
 import {
   Toolbar,
   makeStyles,
-  Typography, Button, Menu, MenuItem, withStyles,
+  Typography
 } from '@material-ui/core';
 import SearchbarComponent from './SearchbarComponent';
 import Link from '@material-ui/core/Link';
 import {useUser} from '@auth0/nextjs-auth0';
-import {AccountTreeSharp, ExitToApp, FaceSharp} from '@material-ui/icons';
+import {AccountTreeSharp, FaceSharp} from '@material-ui/icons';
 import {useRouter} from 'next/router';
-import {useState} from 'react';
-import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
-import PersonIcon from '@material-ui/icons/Person';
+import DropdownMenuComponent from './DropdownMenuComponent';
 
 const useStyles = makeStyles({
   navbar: {
@@ -49,97 +47,36 @@ const useStyles = makeStyles({
   }
 });
 
-const StyledMenu = withStyles({
-  paper: {
-    border: '1px solid #d3d4d5',
-  },
-})((props) => (
-    <Menu
-        elevation={0}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        {...props}
-    />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    '&:hover': {
-      backgroundColor: theme.palette.secondary.main,
-    },
-  },
-}))(MenuItem);
-
 function NavbarComponent() {
   const router = useRouter();
   const path = router.pathname;
   const {user} = useUser();
   const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
-      <div>
-        <AppBar position="static" className={classes.navbar}>
-          <Toolbar className={classes.toolbar}>
-            <div>
-              <Link style={{display: 'flex', textDecoration: 'none'}} href="/">
-                <AccountTreeSharp fontSize="large" className={classes.logo}/>
-                <Typography className={classes.logo} variant="h5"> CBDragons </Typography>
+    <div>
+      <AppBar position="static" className={classes.navbar}>
+        <Toolbar className={classes.toolbar}>
+          <div>
+            <Link style={{display: 'flex', textDecoration: 'none'}} href="/">
+              <AccountTreeSharp fontSize="large" className={classes.logo}/>
+              <Typography className={classes.logo} variant="h5"> CBDragons </Typography>
+            </Link>
+          </div>
+          <div className={classes.right}>
+            {user ?
+              <DropdownMenuComponent user={user}/>
+              :
+              <Link href="/api/auth/login">
+                <FaceSharp className={classes.profile}/>
               </Link>
-            </div>
-            <div className={classes.right}>
-              {user ?
-                  <>
-                    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                      Welcome, {user.name}.
-                    </Button>
-                    <StyledMenu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                      <Link style={{textDecoration: 'none', color: 'black'}} href="/">
-                        <StyledMenuItem onClick={handleClose}><PersonIcon
-                            style={{paddingRight: '0.3rem'}}/> Profile</StyledMenuItem>
-                      </Link>
-                      <Link style={{textDecoration: 'none', color: 'black'}} href="/api/auth/logout">
-                        <StyledMenuItem color="primary" onClick={handleClose}> <MeetingRoomIcon
-                            style={{paddingRight: '0.3rem'}}/> Logout</StyledMenuItem>
-                      </Link>
-                    </StyledMenu>
-                  </>
-                  :
-                  // eslint-disable-next-line @next/next/no-html-link-for-pages
-                  <a href="/api/auth/login">
-                    <FaceSharp className={classes.profile}/>
-                  </a>
-              }
-              {(!user && path === '/') ?
-                  <></>
-                  :
-                  <SearchbarComponent/>
-              }
-            </div>
-          </Toolbar>
-        </AppBar>
-      </div>
+            }
+            {(!user && path === '/') ? <></> : <SearchbarComponent/>}
+          </div>
+        </Toolbar>
+      </AppBar>
+    </div>
   );
 }
 
