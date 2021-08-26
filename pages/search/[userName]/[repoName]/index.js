@@ -59,7 +59,8 @@ function provisionalRepoView() {
 
   const updateFileView = (fileArray, previousUrl) => {
     fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
-    fileArray.unshift(constructPreviousEntry(previousUrl));
+    if(previousUrl)
+      fileArray.unshift(constructPreviousEntry(previousUrl));
     setQueryResults(fileArray);
   };
 
@@ -67,7 +68,6 @@ function provisionalRepoView() {
     const octokit = new Octokit();
     const files = await octokit.request(`GET ${url}`);
     const fileArray = files.data.tree;
-    console.log('current: ', url);
     if (name === '..') {
       setHistoryStack(historyStack.slice(0, -1));
       updateFileView(fileArray, historyStack[historyStack.indexOf(url) - 1]);
