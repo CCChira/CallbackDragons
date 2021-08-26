@@ -42,7 +42,7 @@ const useStyles = makeStyles({
     fontStyle: 'italic',
   },
   searchBar: {
-    marginLeft: '35vw',
+    marginLeft: '40vw',
     marginBottom: '2vh',
     width: '20vw',
   },
@@ -95,7 +95,7 @@ const UserDataDisplay = () => {
   return (
     <Box
       component='div'
-      className={`${classes.UDDContainer} ${styles.background}`}
+      className={`${classes.UDDContainer}`}
     >
       <Paper elevation={4} className={classes.userDataBox}>
         <img

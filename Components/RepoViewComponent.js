@@ -15,9 +15,9 @@ function RepoViewComponent({ fileName, fileType }) {
     <div>
       <div className={classes.fileCard}>
         {fileType === 'blob' ? (
-          <DescriptionTwoTone color='primary' />
+          <DescriptionTwoTone style={{marginRight: '0.5rem'}} color='primary' />
         ) : (
-          <FolderOpenTwoTone color='primary' />
+          <FolderOpenTwoTone style={{marginRight: '0.5rem'}} color='primary' />
         )}
         <Typography variant='h6'>{fileName}</Typography>
       </div>

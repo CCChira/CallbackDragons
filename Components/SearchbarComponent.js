@@ -16,9 +16,10 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 0,
     marginLeft: 0,
     width: '100%',
+    height: '100%',
     [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(3),
-      width: '80%',
+      width: '100%',
+      height: '100%',
     },
   },
   searchIcon: {
@@ -75,6 +76,7 @@ const SearchBarComponent = () => {
           root: classes.inputRoot,
           input: classes.inputInput,
         }}
+        style={{width:'100%', height:'100%'}}
         inputProps={{'aria-label': 'search'}}
       />
     </div>

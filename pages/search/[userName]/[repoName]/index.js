@@ -13,9 +13,11 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '20%',
-    height: '20%',
-    padding: '10px',
+    width: '20vw',
+    minHeight: '10px',
+    overflow: 'hidden',
+    minWidth: '150px',
+    margin: '1.5rem 0'
   },
   userAvatar: {
     verticalAlign: 'middle',
@@ -26,7 +28,7 @@ const useStyles = makeStyles({
     marginBottom: '5px',
   },
   repoPaper: {
-    margin: '20px',
+    marginBottom: '1.5rem',
     maxWidth: '1000px',
     maxHeight: '50%',
     width: '75%',

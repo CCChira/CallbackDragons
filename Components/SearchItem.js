@@ -2,7 +2,7 @@ import { Card, CardContent, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { useEffect, useState } from 'react';
 import { Octokit } from '@octokit/rest';
-import Link from 'next/link';
+
 
 const useStyles = makeStyles({
   root: {
@@ -41,9 +41,7 @@ export default function SearchItem({ result }) {
     <Card className={classes.root}>
       <CardContent className={classes.root}>
         <img src={result.avatar_url} alt='Avatar' className={classes.avatar} />
-        <Link className={classes.text} href={`search/${result.login}`}>
-          <a className={classes.text}>{result.login}</a>
-        </Link>
+          <Typography component='span' className={classes.text}>{result.login}</Typography>
         <Typography className={classes.text}>{bio}</Typography>
       </CardContent>
     </Card>
