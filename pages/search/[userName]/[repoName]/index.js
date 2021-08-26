@@ -8,6 +8,8 @@ import {makeStyles} from '@material-ui/core';
 import Link from 'next/link';
 import {useDispatch, useSelector} from 'react-redux';
 import {setFileStack} from '../../../../store/actions';
+import { markdown } from 'markdown';
+import ReactHtmlParser from 'react-html-parser';
 
 const useStyles = makeStyles({
   userPaper: {
@@ -53,6 +55,7 @@ function provisionalRepoView() {
   const dispatch = useDispatch();
   const setHistoryStack = (payload) => dispatch(setFileStack(payload));
   const [userData, setUserData] = useState({});
+  const [readme, setReadme] = useState('');
   const classes = useStyles();
 
   const constructPreviousEntry = (previousUrl) => ({
@@ -61,7 +64,7 @@ function provisionalRepoView() {
     url: previousUrl
   });
 
-  const updateFileView = (fileArray, previousUrl) => {
+  const updateFileView = async (fileArray, previousUrl) => {
     fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
     if(previousUrl)
       fileArray.unshift(constructPreviousEntry(previousUrl));
@@ -84,6 +87,17 @@ function provisionalRepoView() {
     }
   };
 
+  const getReadme = async () => {
+    const readmeFile = queryResults.find(file => file.path === "README.md");
+    if(readmeFile){
+        const octokit = new Octokit();
+        const url = `https://api.github.com/repos/${userName}/${repoName}/git/blobs/${readmeFile.sha}`;
+        const res = await octokit.request(`GET ${url}`);
+        let markdowncontent = Buffer.from(res.data.content, 'base64').toString();
+        setReadme(markdown.toHTML(markdowncontent));
+    }
+  }
+
   useEffect(() => {
     if (userName && repoName) {
       (async () => {
@@ -102,6 +116,12 @@ function provisionalRepoView() {
       })();
     }
   }, [router.isReady]);
+
+  useEffect(() => {
+    if(queryResults.length > 0){
+      getReadme();
+    }
+  }, [queryResults])
 
   return (
       <div
@@ -143,6 +163,11 @@ function provisionalRepoView() {
             })}
           </List>
         </Paper>
+        {readme !== '' &&
+         <Paper className={classes.repoPaper} elevation={3}>
+           { ReactHtmlParser(readme) }
+         </Paper>
+        }
       </div>
   );
 }
