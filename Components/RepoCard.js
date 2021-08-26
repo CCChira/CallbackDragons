@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
+  Box,
   Button,
   Card,
   CardActions,
@@ -9,6 +10,7 @@ import {
 } from '@material-ui/core';
 import Link from 'next/link';
 import theme from '../src/theme';
+import {Octokit} from "@octokit/core";
 
 const useStyle = makeStyles({
   buttonCont: {
@@ -22,12 +24,52 @@ const useStyle = makeStyles({
   },
 });
 
+const colors = {};
+
+const calcPercentages = (languages) => {
+  let sum = 0;
+
+  for (let lang in languages) {
+    sum += languages[lang];
+  }
+
+  const percentage = {
+  };
+
+  let i = 0, actSum = 0;
+  for (let lang in languages) {
+    if (i === 2) break;
+    if (!colors[lang]) {
+      colors[lang] = Math.floor(Math.random() * 16777215).toString(16);
+    }
+    percentage[lang] = languages[lang] * 100 / sum;
+    actSum += languages[lang];
+    i++;
+  }
+
+  percentage['Others'] = (sum - actSum) * 100 / sum;
+
+  return percentage;
+}
+
 const RepoCard = ({ repo, userName }) => {
   const classes = useStyle();
 
+  const [percentages, setPercentages] = useState({});
+
+  useEffect(() => {
+    (async () => {
+      const octokit = new Octokit();
+      const languages = (await octokit.request(`GET /repos/${userName}/${repo.name}/languages`)).data;
+      const percentage = calcPercentages(languages);
+      colors['Others'] = '210904';
+      setPercentages({...percentage});
+    })()
+  }, [repo.name, userName])
+
   return (
     <Card style={{height:'20rem'}}>
-      <CardContent style={{height:'85%', overflow:'hidden'}}>
+      <CardContent style={{height:'85%', overflow:'hidden'}} >
         <Typography color='textSecondary' gutterBottom>
           Name:
         </Typography>
@@ -39,9 +81,27 @@ const RepoCard = ({ repo, userName }) => {
           {repo.description}
         </Typography>
         <Typography color='textSecondary'>Language:</Typography>
-        <Typography variant='body2' component='p'>
-          {repo.language}
-        </Typography>
+        <Box component='div'>
+          {Object.entries(percentages).map(([key, value]) =>
+             <Typography key = {key} variant='body2' component='p'>
+              {key} : {value.toFixed(2)}%
+            </Typography>
+          )}
+        </Box>
+        <Box component='div'>
+          <Box component='div' minWidth='90%' >
+            {Object.entries(percentages).map(([key, value]) =>
+                <span key={`span${key}`} style={
+                  {
+                    width: `${value}%`,
+                    display: 'inline-block',
+                    backgroundColor: `#${colors[key]}`,
+                    height: '4px'
+                  }
+                } />
+            )}
+          </Box>
+        </Box>
       </CardContent>
       <CardActions style={{height:'15%'}} className={classes.buttonCont}>
         <Link href={`/search/${userName}/${repo.name}`}>
