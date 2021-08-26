@@ -97,7 +97,7 @@ function provisionalRepoView() {
         const repoContents = await octokit.request(
             `GET /repos/${userName}/${repoName}/commits/${repo.data[0]['sha']}`
         );
-        await getNewFiles('', repoContents?.data.commit.tree.url);
+        await getNewFiles('', repoContents?.data.commit.tree.url)
       })();
     }
   }, [router.isReady]);
