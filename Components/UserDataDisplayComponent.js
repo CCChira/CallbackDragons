@@ -95,7 +95,7 @@ const UserDataDisplay = () => {
   return (
     <Box
       component='div'
-      className={`${classes.UDDContainer} ${styles.background}`}
+      className={`${classes.UDDContainer}`}
     >
       <Paper elevation={4} className={classes.userDataBox}>
         <img
