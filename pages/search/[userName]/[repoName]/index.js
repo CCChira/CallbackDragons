@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     minHeight: '10px',
     overflow: 'hidden',
     minWidth: '150px',
-    margin: '2rem 0'
+    margin: '1.5rem 0'
   },
   userAvatar: {
     verticalAlign: 'middle',
@@ -28,7 +28,7 @@ const useStyles = makeStyles({
     marginBottom: '5px',
   },
   repoPaper: {
-    marginBottom: '2rem',
+    marginBottom: '1.5rem',
     maxWidth: '1000px',
     maxHeight: '50%',
     width: '75%',
