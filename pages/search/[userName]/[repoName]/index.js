@@ -63,7 +63,8 @@ function provisionalRepoView() {
 
   const updateFileView = (fileArray, previousUrl) => {
     fileArray.sort((a, b) => (a.type > b.type ? -1 : 1));
-    fileArray.unshift(constructPreviousEntry(previousUrl));
+    if(previousUrl)
+      fileArray.unshift(constructPreviousEntry(previousUrl));
     setQueryResults(fileArray);
   };
 
